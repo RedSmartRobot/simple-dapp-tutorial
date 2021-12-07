@@ -35,8 +35,10 @@ const forwarderOrigin = 'http://localhost:9010'
 const initialize = () => {
   //You will start here 
   const initialize = () => {
-  //Basic Actions Section
-  const onboardButton = document.getElementById('connectButton');
+//Basic Actions Section
+const onboardButton = document.getElementById('connectButton');
+const getAccountsButton = document.getElementById('getAccounts');
+const getAccountsResult = document.getElementById('getAccountsResult');
 
   //Created check function to see if the MetaMask extension is installed
   const isMetaMaskInstalled = () => {
@@ -85,6 +87,13 @@ const onClickConnect = async () => {
 };
   MetaMaskClientCheck();
   //------/Inserted Code------\\
+//Eth_Accounts-getAccountsButton
+getAccountsButton.addEventListener('click', async () => {
+  //we use eth_accounts because it returns a list of addresses owned by us.
+  const accounts = await ethereum.request({ method: 'eth_accounts' });
+  //We take the first address in the array of addresses and display it
+  getAccountsResult.innerHTML = accounts[0] || 'Not able to get accounts';
+});
 };
 }
 window.addEventListener('DOMContentLoaded', initialize)
